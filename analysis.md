@@ -19,8 +19,14 @@ Brand:
     - name
     - image
 
-orders:
+Orders :
     - code
     - order_time
     - delivery_time
     - status [receieved - shiped - delivered]
+
+OrderDetail :
+    - product
+    - quantity
+    - price
+    - total
