@@ -2,15 +2,19 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Product , ProductImages , ProductReview , Category , Brand
+from django_summernote.admin import SummernoteModelAdmin
 
 
 class ProductImagesInline(admin.TabularInline):
     model = ProductImages
 
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
+    summernote_fields = '__all__'
     list_display = ['name' , 'price' , 'flag']
     inlines = [ProductImagesInline]
+
+
 
 
 admin.site.register(Product,ProductAdmin)

@@ -20,6 +20,7 @@ class Product(models.Model):
     desc = models.TextField(_('Description'),max_length=10000)
     flag = models.CharField(_('Flag'),max_length=10 , choices=PRODUCT_FLAC)
     price = models.FloatField(_('Price'))
+    image = models.ImageField(upload_to='products')
     tags = TaggableManager()
     category = models.ForeignKey('Category' ,verbose_name=_('Category'), related_name='product_category',on_delete=models.SET_NULL , null=True,blank=True)
     brand = models.ForeignKey('Brand' , verbose_name=_('Brand') , related_name='product_brand',on_delete=models.SET_NULL , null=True,blank=True)
