@@ -4,8 +4,14 @@ from .models import Product , ProductImages , Brand , Category
 from django.db.models import Count
 # Create your views here.
 
+def post_list(request):
+    objects = Product.objects.all()
+    return render(request, 'products/test_list.html',{'products':objects})
+
+
 class ProductList(ListView):
     model = Product
+    paginate_by = 100 #الصفحة المعروضة
 
 
 class ProductDetail(DetailView):
@@ -21,7 +27,7 @@ class ProductDetail(DetailView):
 
 class BrandList(ListView):
     model = Brand
-
+    # paginate_by = 5
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['brands'] = Brand.objects.all().annotate(product_count=Count('product_brand'))
@@ -42,6 +48,7 @@ class BrandDetail(DetailView):
 
 class CategoryList(ListView):
     model = Category
+    # paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
