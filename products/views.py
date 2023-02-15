@@ -5,7 +5,9 @@ from django.db.models import Count
 # Create your views here.
 
 def post_list(request):
-    objects = Product.objects.all()
+    # price_lte=30 اصغر من او يساوي,price_lt=30 اصغرمن , price__gte=30 اكبر من او يساوي ,price__gt=30 اكبر من
+    # objects = Product.objects.filter(price__range=(30,50))
+    objects = Product.objects.filter(price__range=(30,50))
     return render(request, 'products/test_list.html',{'products':objects})
 
 
