@@ -6,8 +6,17 @@ from django.db.models import Count
 
 def post_list(request):
     # price_lte=30 اصغر من او يساوي,price_lt=30 اصغرمن , price__gte=30 اكبر من او يساوي ,price__gt=30 اكبر من
+    # objects = Product.objects.all()
     # objects = Product.objects.filter(price__range=(30,50))
-    objects = Product.objects.filter(price__range=(30,50))
+    # objects = Product.objects.filter(price__range=(30,50))
+    # objects = Product.objects.filter(category__id=10)
+    # objects = Product.objects.filter(category__id__gt=10)
+    # objects = Product.objects.filter(name__startswith='S')
+    # objects = Product.objects.filter(name__endswith='e')
+    # objects = Product.objects.filter(desc__isnull=True)
+    # objects = Product.objects.filter(desc__isnull=True)
+    objects = Product.objects.filter(quantity__gt=10, price__gt=50)
+
     return render(request, 'products/test_list.html',{'products':objects})
 
 
