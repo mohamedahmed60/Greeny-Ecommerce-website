@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import ListView , DetailView
 from .models import Product , ProductImages , Brand , Category
-from django.db.models import Count , Q , F # F لاستعمل العمود نستخدم  Q,لاستخدام الاستعلامات
+from django.db.models import Count , Q , F , Value # F لاستعمل العمود نستخدم  Q,لاستخدام الاستعلامات
+from django.db.models.functions import Concat # لدمج عمودين مع بعض
+# from django.db.models.aggregates import
 # Create your views here.
 
 def post_list(request):
@@ -41,8 +43,16 @@ def post_list(request):
     # objects = Product.objects.values_list('id','name','category__name','brand')
     # objects = Product.objects.only('id','name')
 
-    objects = Product.objects.select_related('category').all() # one to one use select_related foreignkey
-    objects = Product.objects.prefetch_related('category').all() # many to many use prefetch_related
+    # objects = Product.objects.select_related('category').all() # one to one use select_related foreignkey
+    # objects = Product.objects.prefetch_related('category').all() # many to many use prefetch_related
+
+    # objects = Product.objects.annotate(is_new=Value(True)) # add new colum in model
+    # objects = Product.objects.annotate(
+    #     full_name = Concat('name',Value(' '),'flag')
+    # ) # لدمج عمودين مع بعض
+
+    # ----------    aggregates --------
+    objects = Product.objects.annotate(is_new=Value(True))
 
 
     print(objects)
